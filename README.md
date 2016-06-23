@@ -2,6 +2,9 @@ Minimalist "Store" for snaps.
 
 ```
 sudo apt install snapd python-virtualenv
+
+# ensure ubuntu-core gets installed from the normal store
+sudo snap install hello
 ```
 
 (Requires snapd >=2.0.6)
