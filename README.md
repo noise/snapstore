@@ -34,3 +34,6 @@ Supports snap find <name>, snap install <name>
 snap find foobar25
 snap install foobar25
 ```
+
+Note: at the moment this has to be run on the same host as snapd is
+installed since the download URLs are hardcoded in the metadata.
