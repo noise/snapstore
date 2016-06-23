@@ -1,14 +1,3 @@
-'''
-Minimalist "Store" for snaps.
-
-Edit /etc/environment, add
-  SNAPPY_FORCE_CPI_URL=http://localhost:5000/api/v1/
-and bounce snapd
-
-Put snaps (named as name.snap) and metadata (named as name.meta) in files/
-
-Supports snap find <name>, snap install <name>
-'''
 from flask import Flask, Response, request, url_for, send_from_directory
 import sys
 
