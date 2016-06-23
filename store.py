@@ -31,6 +31,12 @@ def search():
 
 
 @app.route('/anon/download-snap/<name>')
+def anon_download(name):
+    # TODO: sanitize names
+    return send_from_directory(FILES, name)
+
+
+@app.route('/download-snap/<name>')
 def download(name):
     # TODO: sanitize names
     return send_from_directory(FILES, name)
