@@ -1,0 +1,35 @@
+{
+    "_embedded": {
+        "clickindex:package": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http://localhost:5000/api/v1/package/W2pGsnY3YWr5L8TE8s5l1i6XC6sC6xQB"
+                    }
+                },
+                "anon_download_url": "http://localhost:5000/anon/download-snap/foobar25.snap",
+                "architecture": [
+                    "amd64"
+                ],
+                "binary_filesize": null,
+                "channel": "stable",
+                "confinement": "strict",
+                "content": "application",
+                "description": "This is a test snap",
+                "download_sha512": "7c229e954b1e136d02b33ad14841164b85d19e5b6b2efc9bed27b01bec3bba82e8580cbce6fa4feac1680ce7ff6b1023b3633d8dec7910e1d34203fa48e1bc72",
+                "download_url": "http://localhost:5000/download-snap/foobar25.snap",
+                "icon_url": null,
+                "last_updated": "2016-06-03T12:01:15.435821Z",
+                "origin": "testuser",
+                "package_name": "foobar25",
+                "prices": {},
+                "publisher": "TestUser",
+                "ratings_average": 0.0,
+                "revision": 1,
+                "snap_id": "W2pGsnY3YWr5L8TE8s5l1i6XC6sC6xQB",
+                "summary": "This is a test snap",
+                "version": "2.5"
+            }
+        ]
+    }
+}
