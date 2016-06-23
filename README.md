@@ -1,5 +1,11 @@
 Minimalist "Store" for snaps.
 
+```
+sudo apt install snapd python-virtualenv
+```
+
+(Requires snapd >=2.0.6)
+
 Edit /etc/environment, add
 
 ```
