@@ -2,11 +2,6 @@
     "_embedded": {
         "clickindex:package": [
             {
-                "_links": {
-                    "self": {
-                        "href": "http://localhost:5000/api/v1/package/W2pGsnY3YWr5L8TE8s5l1i6XC6sC6xQB"
-                    }
-                },
                 "anon_download_url": "http://localhost:5000/anon/download-snap/foobar25.snap",
                 "architecture": [
                     "amd64"

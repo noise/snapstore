@@ -1,6 +1,6 @@
 # Overview
 
-snapstore is a minimalist "store" for snaps, based on the public API specs (https://wiki.ubuntu.com/AppStore/Interfaces/ClickPackageIndex). It allows anyone to host their own collection of snaps for installation on supported platforms.
+snapstore is a minimalist example of a "store" for snaps, based on the public API specs (https://wiki.ubuntu.com/AppStore/Interfaces/ClickPackageIndex). It allows anyone to host their own collection of snaps for installation on supported platforms.
 
 See http://snapcraft.io for more information on creating and using snap packages.
 
@@ -69,5 +69,4 @@ sudo snap install foobar25
 
 # Known issues
 
-- at the moment this has to be run on the same host as snapd is
-installed since the download URLs are hardcoded in the metadata.
+- It's just an example, probably lots!
