@@ -4,7 +4,16 @@ snapstore is a minimalist example of a "store" for snaps, based on the public AP
 
 See http://snapcraft.io for more information on creating and using snap packages.
 
-# Server setup
+# Server setup (with snappy)
+
+```
+snap install snapstore-example
+```
+
+It will be run as a daemon on the default port 5000.
+
+
+# Server setup (manual)
 
 Install python-virtualenv.
 
@@ -26,13 +35,16 @@ virtualenv env
 pip install -r requirements.txt
 ```
 
-Put snaps (named as name.snap) and metadata (named as name.meta) in files/. We've already included one sample snap (foobar25).
-
-
 Run it:
 ```
 python store.py
 ```
+
+
+# File management
+
+Put snaps (named as name.snap) and metadata (named as name.meta) in files/. We've already included one sample snap (foobar25).
+
 
 # Client setup
 
