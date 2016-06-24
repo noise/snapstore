@@ -43,7 +43,7 @@ python store.py
 
 # File management
 
-Put snaps (named as name.snap) and metadata (named as name.meta) in files/. We've already included one sample snap (foobar25).
+Put snaps (named as name.snap) and metadata (named as name.meta) in ./files/ (/var/snap/snapstore-example/current/files/ for snap version). We've already included one sample snap (foobar25).
 
 
 # Client setup
