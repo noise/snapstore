@@ -15,27 +15,32 @@ def hello():
     return 'Hello snap store example!'
 
 
-@app.route('/api/v1/search')
-def search():
-    ''' note in 2.0.9 snap install uses the search endpoint
-    for package details as well as for snap find '''
-    name = request.args.get('q')
-    # hackity hack hack: find passes q=package_name:"foo"
-    if 'package_name' in name:
-        name = name.split(':')[1].replace('"', '')
-
+def read_meta(name):
     try:
         fname = safe_join(FILES, name + '.meta')
         with open(fname, 'r') as meta:
             # replace download URLs
-            data = json.loads(meta.read())
-            pkg = data['_embedded']['clickindex:package'][0]
-            pkg['download_url'] = url_for('download', name=name + '.snap',
-                                          _external=True)
+            pkg = json.loads(meta.read())
+            pkg['download_url'] = url_for('download', name=name + '.snap', _external=True)
             pkg['anon_download_url'] = pkg['download_url']
-            return Response(json.dumps(data), mimetype='application/hal+json')
+            return pkg
     except Exception as e:
-        return Response('{}', mimetype='application/hal+json')
+        return None
+
+
+@app.route('/api/v1/search')
+def search():
+    ''' note in 2.0.9 snap install uses the search endpoint
+    for package details as well as for snap find '''
+    q = request.args.get('q', '')
+    if 'package_name' in q:
+        names = [q.split(':')[1].replace('"', '')]
+    else:
+        names = [os.path.splitext(n)[0] for n in os.listdir(FILES)
+                 if n.startswith(q) and n.endswith('.meta')]
+    data = {'_embedded': {'clickindex:package': []}}
+    data['_embedded']['clickindex:package'] = [m for m in [read_meta(n) for n in names] if m]
+    return Response(json.dumps(data), mimetype='application/hal+json')
 
 
 @app.route('/download/<name>')

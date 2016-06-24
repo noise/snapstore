@@ -91,5 +91,5 @@ ENV/
 # snapcraft
 stage/
 prime/
-*.snap
+snapstore-example*
 *.bz2
