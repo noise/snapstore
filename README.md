@@ -1,41 +1,64 @@
-Minimalist "Store" for snaps.
+# Overview
 
+snapstore is a minimalist "store" for snaps, based on the public API specs (https://wiki.ubuntu.com/AppStore/Interfaces/ClickPackageIndex). It allows anyone to host their own collection of snaps for installation on supported platforms.
+
+See http://snapcraft.io for more information on creating and using snap packages.
+
+# Server setup
+
+Install python-virtualenv.
+
+E.g. on Ubuntu 16.04:
 ```
-sudo apt install snapd python-virtualenv
-
-# ensure ubuntu-core gets installed from the normal store
-sudo snap install hello
-```
-
-(Requires snapd >=2.0.6)
-
-Edit /etc/environment, add
-
-```
-SNAPPY_FORCE_CPI_URL=http://localhost:5000/api/v1/
+sudo apt install python-virtualenv
 ```
 
-Then bounce snapd
-
+Clone this repo:
 ```
-sudo service snapd restart
+git clone https://github.com/noise/snapstore.git
+cd snapstore
 ```
 
-Put snaps (named as name.snap) and metadata (named as name.meta) in files/
-
-Setup virtualenv
-
+Setup virtualenv and install dependencies:
 ```
 virtualenv env
 . env/bin/activate
 pip install -r requirements.txt
 ```
 
-Run it
+Put snaps (named as name.snap) and metadata (named as name.meta) in files/. We've already included one sample snap (foobar25).
 
+
+Run it:
 ```
 python store.py
 ```
+
+# Client setup
+
+On any distribution supporting snaps (see http://snapcraft.io), install snapd (requires snapd >=2.0.6).
+
+E.g. on Ubuntu 16.04:
+```
+sudo apt install snapd
+```
+
+Ensure core snap gets installed from the normal store, triggered on first snap install.
+```
+sudo snap install hello
+```
+
+Edit /etc/environment, add your store URL, e.g.:
+```
+SNAPPY_FORCE_CPI_URL=http://localhost:5000/api/v1/
+```
+
+Then bounce snapd:
+```
+sudo service snapd restart
+```
+
+# Usage
 
 Supports snap find <name>, snap install <name>
 
@@ -44,5 +67,7 @@ snap find foobar25
 sudo snap install foobar25
 ```
 
-Notes: at the moment this has to be run on the same host as snapd is
+# Known issues
+
+- at the moment this has to be run on the same host as snapd is
 installed since the download URLs are hardcoded in the metadata.
