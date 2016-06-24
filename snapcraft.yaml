@@ -1,4 +1,4 @@
-name: a-snapstore
+name: snapstore-example
 version: 0.1
 confinement: strict
 summary: Minimalist example snap store
@@ -13,7 +13,7 @@ description: |
 
 apps:
   snapstore:
-    command: store.py
+    command: store-wrapper.sh
     daemon: simple
     plugs: [network, network-bind]
 
@@ -29,3 +29,5 @@ parts:
     plugin: copy
     files:
      store.py: bin/
+     store-wrapper.sh: bin/
+     files: files

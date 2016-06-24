@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 from flask import Flask, Response, request, send_from_directory, url_for, json
 from flask.helpers import safe_join
+import os
 
-FILES = 'files'
+
+FILES = os.environ.get('FILES', 'files')
 
 
 app = Flask(__name__)
