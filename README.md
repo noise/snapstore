@@ -75,10 +75,26 @@ sudo service snapd restart
 Supports snap find <name>, snap install <name>
 
 ```
-snap find foobar25
-sudo snap install foobar25
+$ snap find
+Name      Version  Developer  Notes  Summary
+bar       0.2      testuser   -      This is a bar snap
+baz       0.4      testuser   -      This is a baz snap
+foobar25  2.5      testuser   -      This is a test snap
+
+$ snap find ba
+Name  Version  Developer  Notes  Summary
+bar   0.2      testuser   -      This is a bar snap
+baz   0.4      testuser   -      This is a baz snap
+
+$ snap install bar
+
+Name  Version  Rev  Developer  Notes
+bar   2.5      1    testuser   -
 ```
 
 # Known issues
 
 - It's just an example, probably lots!
+- snap refresh (bulk) not supported
+- issue above w/having to install core from canonical store.
+- newer details endpoint not implemented (will be needed in >2.0.9)
