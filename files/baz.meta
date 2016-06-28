@@ -6,16 +6,16 @@
     "channel": "stable",
     "confinement": "strict",
     "content": "application",
-    "description": "This is a test snap",
+    "description": "This is a baz snap",
     "icon_url": null,
     "last_updated": "2016-06-03T12:01:15.435821Z",
     "origin": "testuser",
-    "package_name": "foobar25",
+    "package_name": "baz",
     "prices": {},
     "publisher": "TestUser",
     "ratings_average": 0.0,
-    "revision": 1,
-    "snap_id": "xxxxxxxxxxxxxxxxxxxxxxxxfoobar25",
-    "summary": "This is a test snap",
-    "version": "2.5"
+    "revision": 3,
+    "snap_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxbaz",
+    "summary": "This is a baz snap",
+    "version": "0.4"
 }
