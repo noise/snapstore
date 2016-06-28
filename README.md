@@ -55,11 +55,6 @@ E.g. on Ubuntu 16.04:
 sudo apt install snapd
 ```
 
-Ensure core snap gets installed from the normal store, triggered on first snap install.
-```
-sudo snap install hello
-```
-
 Edit /etc/environment, add your store URL, e.g.:
 ```
 SNAPPY_FORCE_CPI_URL=http://localhost:5000/api/v1/
@@ -90,11 +85,14 @@ $ snap install bar
 
 Name  Version  Rev  Developer  Notes
 bar   2.5      1    testuser   -
+
+$ snap refresh bar
+
+Name  Version  Rev  Developer  Notes
+bar   2.5      2    testuser   -
 ```
 
 # Known issues
 
 - It's just an example, probably lots!
 - snap refresh (bulk) not supported
-- issue above w/having to install core from canonical store.
-- newer details endpoint not implemented (will be needed in >2.0.9)
