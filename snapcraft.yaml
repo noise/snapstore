@@ -1,5 +1,5 @@
 name: snapstore-example
-version: 0.1
+version: 0.3
 confinement: strict
 summary: Minimalist example snap store
 description: |
