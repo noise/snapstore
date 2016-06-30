@@ -12,6 +12,8 @@ HEADERS = ['X-Ubuntu-Release', 'X-Ubuntu-Series',
            'X-Ubuntu-Wire-Format', 'Authorization']
 
 app = Flask(__name__)
+snaps = {}
+snaps_by_id = {}
 
 
 @app.route('/')
@@ -29,21 +31,36 @@ def read_meta(name):
             pkg['anon_download_url'] = pkg['download_url']
             return pkg
     except Exception as e:
+        print e
         return None
 
 
-@app.route('/api/v1/details/<name>')
-def details(name):
-    meta = read_meta(name)
+@app.before_first_request
+def refresh_meta():
+    global snaps, snaps_by_id
+    names = [os.path.splitext(n)[0] for n in os.listdir(FILES) if n.endswith('.meta')]
+    pkgs = [read_meta(n) for n in names]
+    snaps = {pkg['package_name']: pkg for pkg in pkgs}
+    snaps_by_id = {pkg['snap_id']: pkg for pkg in pkgs}
+    print 'loaded metadata for %d snaps' % len(snaps_by_id)
+
+
+def _details(name):
+    meta = snaps.get(name)
     if meta:
-        data = {'_embedded': {'clickindex:package': [meta]}}
-        return Response(json.dumps(data), mimetype='application/hal+json')
+        return meta
     else:
         # passthrough to upstream if we don't have that snap
-        f = request.args.get('fields')
+        # TODO: global toggle for passthrough
         h = {k: v for (k, v) in request.headers if k in HEADERS}
-        r = requests.get(USTORE + '/search?q=package_name:"%s"&fields=%s' % (name, f), headers=h)
-        return Response(json.dumps(r.json()), mimetype='application/hal+json')
+        r = requests.get(USTORE + '/snaps/details/%s' % name, headers=h)
+        return r.json()
+
+
+@app.route('/api/v1/snaps/details/<name>')
+def details(name):
+    pkg = _details(name)
+    return Response(json.dumps(pkg), mimetype='application/hal+json')
 
 
 @app.route('/api/v1/search')
@@ -53,14 +70,38 @@ def search():
     q = request.args.get('q', '')
     if 'package_name' in q:
         name = q.split(':')[1].replace('"', '')
-        return details(name)
+        names = [name]
     else:
+        # TODO: hit upstream and merge results
         names = [os.path.splitext(n)[0] for n in os.listdir(FILES)
                  if n.startswith(q) and n.endswith('.meta')]
         if len(names) == 0:
             names = [q]
+    data = {'_embedded': {'clickindex:package': [m for m in [_details(n) for n in names] if m]}}
+    return Response(json.dumps(data), mimetype='application/hal+json')
+
+
+@app.route('/api/v1/snaps/metadata', methods=['POST'])
+def metadata():
+    ''' Metadata is a bulk request from snap refresh that sends a list of
+    (snap_id, channel, confinement) tuples. '''
+    data = request.get_json(force=True)
+    ids = [s['snap_id'] for s in data['snaps']]
+
+    local_ids = [id for id in ids if id in snaps_by_id]
+    remote_ids = [id for id in ids if id not in snaps_by_id]
+
+    # print 'local: ', local_ids
+    # print 'remote: ', remote_ids
     data = {'_embedded': {'clickindex:package': []}}
-    data['_embedded']['clickindex:package'] = [m for m in [read_meta(n) for n in names] if m]
+    data['_embedded']['clickindex:package'] = [snaps_by_id[id] for id in local_ids]
+
+    if len(remote_ids) > 0:
+        h = {k: v for (k, v) in request.headers if k in HEADERS}
+        r = requests.post(USTORE + '/snaps/metadata', headers=h, data=request.data)
+        up_d = json.loads(r.text)
+        data['_embedded']['clickindex:package'].append(up_d['_embedded']['clickindex:package'])
+
     return Response(json.dumps(data), mimetype='application/hal+json')
 
 

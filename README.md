@@ -95,4 +95,8 @@ bar   2.5      2    testuser   -
 # Known issues
 
 - It's just an example, probably lots!
-- snap refresh (bulk) not supported
+
+# TODO
+
+- passthrough/join for find
+

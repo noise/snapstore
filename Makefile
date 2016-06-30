@@ -11,7 +11,7 @@ deps: env ## install dependencies
 	$(ENV)/bin/pip install -q -r requirements.txt
 
 lint: env ## flake8 the source
-	$(ENV)/bin/flake8 store.py --max-line-length=99
+	$(ENV)/bin/flake8 *.py --max-line-length=99
 
 clean: ## tidy up the house
 	rm snapstore-example*.snap
@@ -20,6 +20,9 @@ clean: ## tidy up the house
 
 run: env deps
 	$(ENV)/bin/python store.py
+
+test: env deps
+	$(ENV)/bin/python test_store.py
 
 help:
 	@grep -P '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
