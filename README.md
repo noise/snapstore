@@ -19,7 +19,7 @@ Install python-virtualenv.
 
 E.g. on Ubuntu 16.04:
 ```
-sudo apt install python-virtualenv
+sudo apt-get install python-virtualenv
 ```
 
 Clone this repo:
