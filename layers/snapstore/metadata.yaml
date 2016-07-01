@@ -1,0 +1,9 @@
+name: snapstore
+summary: Snappy store
+maintainer: MattyW <gh@mattyw.net>
+description: A simple charm that serves a snapstore 
+series: 
+    - trusty
+provides:
+  website:
+    interface: http

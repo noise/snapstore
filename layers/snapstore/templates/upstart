@@ -1,0 +1,10 @@
+description "snapstore service"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+respawn
+
+script
+    chdir {{dir}}
+    exec {{install_binary}}
+end script
