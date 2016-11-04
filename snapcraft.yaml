@@ -1,6 +1,7 @@
 name: snapstore-example
 version: 0.3
 confinement: strict
+grade: devel
 summary: Minimalist example snap store
 description: |
   snapstore is a minimalist example of a "store" for snaps, based on the public
@@ -20,7 +21,9 @@ apps:
 parts:
   # Setup the python2 environment and grab the dependencies
   prerequisites:
-    plugin: python2
+    source: .
+    plugin: python
+    python-version: python2
     requirements: requirements.txt
 
   # Copy in the store executable. It's done in a separate part since there's no
