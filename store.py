@@ -46,7 +46,7 @@ def details(name):
         return Response(json.dumps(r.json()), mimetype='application/hal+json')
 
 
-@app.route('/api/v1/search')
+@app.route('/api/v1/snaps/search')
 def search():
     ''' note in 2.0.9 snap install uses the search endpoint
     for package details as well as for snap find '''
