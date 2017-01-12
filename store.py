@@ -64,6 +64,7 @@ def details(name):
 
 
 @app.route('/api/v1/search')
+@app.route('/api/v1/snaps/search')
 def search():
     ''' note in 2.0.9 snap install uses the search endpoint
     for package details as well as for snap find '''
@@ -100,7 +101,7 @@ def metadata():
         h = {k: v for (k, v) in request.headers if k in HEADERS}
         r = requests.post(USTORE + '/snaps/metadata', headers=h, data=request.data)
         up_d = json.loads(r.text)
-        data['_embedded']['clickindex:package'].append(up_d['_embedded']['clickindex:package'])
+        data['_embedded']['clickindex:package'] += up_d['_embedded']['clickindex:package']
 
     return Response(json.dumps(data), mimetype='application/hal+json')
 
