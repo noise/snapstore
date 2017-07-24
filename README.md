@@ -1,3 +1,5 @@
+[![Snap Status](https://build.snapcraft.io/badge/noise/snapstore.svg)](https://build.snapcraft.io/user/noise/snapstore)
+
 # Overview
 
 snapstore is a minimalist example of a "store" for snaps, based on the public API specs (https://wiki.ubuntu.com/AppStore/Interfaces/ClickPackageIndex). It allows anyone to host their own collection of snaps for installation on supported platforms.
